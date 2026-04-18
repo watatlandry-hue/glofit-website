@@ -1,373 +1,1781 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Glofit — Become What You Project</title>
-<meta name="description" content="AI-powered fitness and nutrition app. See your future body today.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glofit — Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0A0A0A;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6}
-.container{max-width:1200px;margin:0 auto;padding:0 24px}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 24px;background:rgba(10,10,10,0.8);backdrop-filter:blur(20px);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a;gap:12px}
-.logo{font-weight:900;font-size:22px;letter-spacing:-1px}
-.logo .glo{color:#fff}
-.logo .fit{color:#C8F135}
-.nav-links{display:flex;gap:28px;list-style:none}
-.nav-links a{color:#888;text-decoration:none;font-size:14px}
-.nav-links a:hover{color:#C8F135}
-.nav-right{display:flex;align-items:center;gap:12px}
-.lang-switch{display:flex;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:100px;padding:3px;gap:2px}
-.lang-btn{background:transparent;color:#888;border:none;padding:6px 12px;border-radius:100px;font-size:12px;font-weight:700;cursor:pointer}
-.lang-btn.active{background:#C8F135;color:#0A0A0A}
-.cta-btn{background:#C8F135;color:#0A0A0A;padding:10px 18px;border-radius:100px;font-weight:700;text-decoration:none;font-size:13px}
-@media(max-width:768px){.nav-links{display:none}.cta-btn{padding:8px 14px;font-size:12px}}
-.hero{min-height:100vh;padding:140px 24px 60px;display:flex;align-items:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:30%;left:20%;width:500px;height:500px;background:radial-gradient(circle,rgba(200,241,53,0.15),transparent);filter:blur(80px)}
-.hero-content{position:relative;max-width:900px;margin:0 auto;text-align:center}
-.badge{display:inline-block;padding:8px 16px;border:1px solid #2a2a2a;border-radius:100px;font-size:12px;color:#888;margin-bottom:32px;background:rgba(255,255,255,0.02)}
-.badge .dot{display:inline-block;width:6px;height:6px;background:#C8F135;border-radius:50%;margin-right:8px;box-shadow:0 0 10px #C8F135}
-h1{font-size:clamp(48px,8vw,96px);font-weight:900;line-height:0.95;letter-spacing:-3px;margin-bottom:24px;text-transform:uppercase}
-h1 .accent{color:#C8F135;font-style:italic;font-weight:400;text-transform:none}
-.hero p{font-size:20px;color:#888;max-width:600px;margin:0 auto 40px;font-style:italic}
-.btn-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-.btn-primary{background:#C8F135;color:#0A0A0A;padding:16px 32px;border-radius:100px;font-weight:700;text-decoration:none;box-shadow:0 0 40px rgba(200,241,53,0.3)}
-.btn-secondary{background:transparent;color:#fff;padding:16px 32px;border-radius:100px;font-weight:700;text-decoration:none;border:1px solid #2a2a2a}
-.stats{background:#C8F135;color:#0A0A0A;padding:60px 24px;text-align:center}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;max-width:1000px;margin:0 auto}
-@media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
-.stat-num{font-size:64px;font-weight:900;line-height:1}
-.stat-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-top:8px}
-section{padding:100px 24px}
-.section-label{color:#C8F135;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;font-weight:700}
-h2{font-size:clamp(36px,5vw,64px);font-weight:900;line-height:1;letter-spacing:-2px;text-transform:uppercase;margin-bottom:24px}
-h2 .accent{color:#C8F135;font-style:italic;font-weight:400;text-transform:none}
-.section-desc{font-size:18px;color:#888;max-width:600px;margin-bottom:60px}
-.features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media(max-width:900px){.features{grid-template-columns:1fr}}
-.feature{background:#111;border:1px solid #1f1f1f;border-radius:24px;padding:32px;transition:all 0.3s}
-.feature:hover{border-color:#C8F135;transform:translateY(-4px)}
-.feature-num{color:#C8F135;font-size:11px;letter-spacing:2px;margin-bottom:24px;font-family:monospace}
-.feature-icon{width:48px;height:48px;background:#1a1a1a;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:24px}
-.feature h3{font-size:22px;font-weight:900;margin-bottom:12px;text-transform:uppercase;letter-spacing:-1px}
-.feature p{color:#888;font-size:14px}
-.how{background:#080808;border-top:1px solid #1a1a1a;border-bottom:1px solid #1a1a1a}
-.step{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-bottom:80px}
-@media(max-width:900px){.step{grid-template-columns:1fr;gap:30px}}
-.step-num{font-size:80px;color:#C8F135;font-weight:900;line-height:1;font-style:italic}
-.step h3{font-size:36px;font-weight:900;text-transform:uppercase;letter-spacing:-1px;margin:16px 0}
-.step p{color:#888;margin-bottom:20px}
-.step ul{list-style:none}
-.step li{padding:8px 0;border-bottom:1px solid #1a1a1a;color:#fff;font-size:14px}
-.step li:before{content:'→ ';color:#C8F135;font-weight:700;margin-right:8px}
-.step-visual{background:#111;border:1px solid #1f1f1f;border-radius:24px;padding:40px;text-align:center;aspect-ratio:4/5;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:20px}
-.visual-emoji{font-size:80px}
-.visual-title{font-weight:900;font-size:24px;color:#C8F135;text-transform:uppercase;letter-spacing:-1px}
-.visual-desc{color:#888;font-size:14px}
-.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
-@media(max-width:900px){.pricing{grid-template-columns:1fr}}
-.price{background:#111;border:1px solid #1f1f1f;border-radius:24px;padding:40px 28px;position:relative}
-.price.featured{background:linear-gradient(180deg,rgba(200,241,53,0.08),#111);border-color:#C8F135}
-.price.featured:before{content:attr(data-popular);position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#C8F135;color:#0A0A0A;padding:6px 16px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:2px;white-space:nowrap}
-.price-name{font-size:20px;font-weight:900;text-transform:uppercase;letter-spacing:-1px;margin-bottom:8px}
-.price-amount{font-size:48px;font-weight:900;letter-spacing:-2px;margin-bottom:4px}
-.price-amount .currency{font-size:24px;color:#888}
-.price-amount .period{font-size:14px;color:#888;font-weight:400}
-.price-desc{color:#888;font-size:13px;margin-bottom:24px}
-.price ul{list-style:none;padding-top:20px;border-top:1px solid #1f1f1f}
-.price li{padding:6px 0;font-size:14px}
-.price li:before{content:'✓ ';color:#C8F135;font-weight:700}
-.price .btn{display:block;width:100%;padding:14px;margin-top:20px;border-radius:100px;background:transparent;color:#fff;text-decoration:none;text-align:center;font-weight:700;border:1px solid #2a2a2a}
-.price.featured .btn{background:#C8F135;color:#0A0A0A;border-color:#C8F135}
-details{border-bottom:1px solid #1a1a1a;padding:20px 0}
-summary{cursor:pointer;font-weight:900;font-size:18px;text-transform:uppercase;letter-spacing:-1px;display:flex;justify-content:space-between;list-style:none}
-summary::-webkit-details-marker{display:none}
-summary:after{content:'+';color:#C8F135;font-size:24px}
-details[open] summary:after{content:'×'}
-.faq-answer{padding-top:12px;color:#888;font-size:15px}
-.cta-final{text-align:center;padding:120px 24px;position:relative}
-.cta-final:before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(200,241,53,0.15),transparent);filter:blur(80px);z-index:-1}
-.cta-final h2{margin-bottom:32px}
-footer{border-top:1px solid #1a1a1a;padding:60px 24px 30px;background:#050505}
-.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
-@media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr}}
-.footer-col h4{color:#C8F135;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
-.footer-col ul{list-style:none}
-.footer-col li{padding:4px 0}
-.footer-col a{color:#888;text-decoration:none;font-size:14px}
-.footer-brand p{color:#888;font-style:italic;max-width:300px;margin-top:12px}
-.footer-bottom{max-width:1200px;margin:0 auto;padding-top:24px;border-top:1px solid #1a1a1a;color:#4a4a4a;font-size:12px;text-align:center}
+  :root {
+    --lime: #C8F135;
+    --lime-dark: #a8d010;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --card: #1A1A1A;
+    --card2: #222222;
+    --muted: #555;
+    --text: #F0F0F0;
+    --text2: #999;
+    --accent: #FF6B35;
+    --blue: #4FC3F7;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+background: #0D0D0D;
+font-family: ‘DM Sans’, sans-serif;
+display: flex;
+flex-direction: column;
+align-items: center;
+min-height: 100vh;
+padding: 20px 10px 40px;
+color: var(–text);
+}
+
+.app-label {
+font-family: ‘Syne’, sans-serif;
+font-size: 13px;
+font-weight: 600;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(–lime);
+margin-bottom: 8px;
+}
+
+.app-subtitle {
+font-size: 12px;
+color: var(–text2);
+margin-bottom: 30px;
+letter-spacing: 1px;
+}
+
+/* Navigation tabs */
+.nav-tabs {
+display: flex;
+gap: 6px;
+margin-bottom: 24px;
+background: var(–card);
+border-radius: 14px;
+padding: 6px;
+flex-wrap: wrap;
+justify-content: center;
+max-width: 420px;
+width: 100%;
+}
+
+.nav-tab {
+padding: 8px 14px;
+border-radius: 10px;
+border: none;
+background: transparent;
+color: var(–text2);
+font-family: ‘DM Sans’, sans-serif;
+font-size: 12px;
+font-weight: 500;
+cursor: pointer;
+transition: all 0.2s;
+white-space: nowrap;
+}
+
+.nav-tab.active {
+background: var(–lime);
+color: var(–black);
+font-weight: 700;
+}
+
+/* Phone frame */
+.phone {
+width: 390px;
+min-height: 780px;
+background: var(–dark);
+border-radius: 44px;
+border: 2px solid #2a2a2a;
+overflow: hidden;
+position: relative;
+box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px #333;
+}
+
+/* Status bar */
+.status-bar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 14px 28px 0;
+font-size: 12px;
+font-weight: 600;
+color: var(–text);
+}
+
+.notch {
+width: 120px;
+height: 28px;
+background: var(–black);
+border-radius: 0 0 18px 18px;
+margin: 0 auto 0;
+}
+
+/* Screens */
+.screen { display: none; padding: 0 0 100px; }
+.screen.active { display: block; }
+
+/* Bottom nav */
+.bottom-nav {
+position: absolute;
+bottom: 0;
+left: 0; right: 0;
+background: rgba(15,15,15,0.95);
+backdrop-filter: blur(20px);
+border-top: 1px solid #2a2a2a;
+display: flex;
+justify-content: space-around;
+padding: 12px 8px 24px;
+}
+
+.nav-item {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 4px;
+cursor: pointer;
+opacity: 0.5;
+transition: all 0.2s;
+}
+.nav-item.active { opacity: 1; }
+.nav-item .icon { font-size: 22px; }
+.nav-item .label {
+font-size: 10px;
+font-weight: 500;
+color: var(–text2);
+}
+.nav-item.active .label { color: var(–lime); }
+
+/* ===== SCREEN 1: ONBOARDING ===== */
+.onboard-hero {
+height: 400px;
+background: linear-gradient(160deg, #1a2a0a 0%, #0a0f05 50%, #0A0A0A 100%);
+position: relative;
+overflow: hidden;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.onboard-glow {
+position: absolute;
+width: 300px; height: 300px;
+background: radial-gradient(circle, rgba(200,241,53,0.18) 0%, transparent 70%);
+top: 50%; left: 50%;
+transform: translate(-50%, -50%);
+animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+}
+
+.body-figures {
+display: flex;
+gap: 40px;
+align-items: flex-end;
+position: relative;
+z-index: 2;
+}
+
+.body-fig {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 8px;
+}
+
+.body-silhouette {
+width: 60px;
+height: 120px;
+position: relative;
+}
+
+.body-silhouette svg { width: 100%; height: 100%; }
+
+.fig-label {
+font-size: 10px;
+font-weight: 700;
+letter-spacing: 1px;
+text-transform: uppercase;
+}
+
+.arrow-between {
+font-size: 24px;
+color: var(–lime);
+padding-bottom: 60px;
+animation: arrowPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes arrowPulse {
+0%, 100% { transform: translateX(0); opacity: 0.6; }
+50% { transform: translateX(4px); opacity: 1; }
+}
+
+.onboard-content {
+padding: 28px 28px 0;
+}
+
+.logo-text {
+font-family: ‘Syne’, sans-serif;
+font-size: 38px;
+font-weight: 800;
+letter-spacing: -1px;
+line-height: 1;
+}
+
+.logo-text span { color: var(–lime); }
+
+.onboard-tagline {
+font-size: 14px;
+color: var(–text2);
+margin-top: 8px;
+line-height: 1.5;
+}
+
+.btn-primary {
+display: block;
+width: 100%;
+padding: 16px;
+background: var(–lime);
+color: var(–black);
+border: none;
+border-radius: 16px;
+font-family: ‘Syne’, sans-serif;
+font-size: 15px;
+font-weight: 700;
+cursor: pointer;
+margin-top: 24px;
+letter-spacing: 0.5px;
+transition: all 0.2s;
+}
+
+.btn-primary:hover { background: var(–lime-dark); }
+
+.btn-secondary {
+display: block;
+width: 100%;
+padding: 14px;
+background: transparent;
+color: var(–text2);
+border: 1px solid #333;
+border-radius: 16px;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 14px;
+cursor: pointer;
+margin-top: 10px;
+text-align: center;
+}
+
+.pills {
+display: flex;
+gap: 8px;
+flex-wrap: wrap;
+margin-top: 20px;
+}
+
+.pill {
+padding: 6px 14px;
+background: var(–card);
+border-radius: 20px;
+font-size: 11px;
+color: var(–text2);
+border: 1px solid #2a2a2a;
+}
+
+.pill.active {
+background: rgba(200,241,53,0.15);
+border-color: var(–lime);
+color: var(–lime);
+}
+
+/* ===== SCREEN 2: HOME DASHBOARD ===== */
+.home-header {
+padding: 20px 24px 16px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.greeting {
+font-family: ‘Syne’, sans-serif;
+font-size: 22px;
+font-weight: 700;
+}
+
+.greeting span { color: var(–lime); }
+
+.avatar {
+width: 42px; height: 42px;
+border-radius: 50%;
+background: linear-gradient(135deg, var(–lime), #88b000);
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 800;
+color: var(–black);
+font-size: 16px;
+}
+
+.section-title {
+font-family: ‘Syne’, sans-serif;
+font-size: 13px;
+font-weight: 700;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+color: var(–text2);
+padding: 0 24px;
+margin-bottom: 12px;
+}
+
+/* Transformation card */
+.transform-card {
+margin: 0 16px 20px;
+background: var(–card);
+border-radius: 24px;
+overflow: hidden;
+border: 1px solid #2a2a2a;
+}
+
+.transform-header {
+padding: 16px 20px 12px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.transform-title {
+font-family: ‘Syne’, sans-serif;
+font-size: 15px;
+font-weight: 700;
+}
+
+.badge-ai {
+background: rgba(200,241,53,0.15);
+color: var(–lime);
+font-size: 10px;
+font-weight: 700;
+padding: 4px 10px;
+border-radius: 20px;
+border: 1px solid rgba(200,241,53,0.3);
+}
+
+.before-after {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 2px;
+margin: 0 20px 16px;
+}
+
+.ba-box {
+background: var(–card2);
+border-radius: 14px;
+padding: 16px 12px;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 10px;
+position: relative;
+overflow: hidden;
+}
+
+.ba-box.future {
+background: linear-gradient(160deg, #1a2a0a, #111);
+border: 1px solid rgba(200,241,53,0.2);
+}
+
+.ba-label {
+font-size: 10px;
+font-weight: 700;
+letter-spacing: 1px;
+text-transform: uppercase;
+color: var(–text2);
+}
+
+.ba-box.future .ba-label { color: var(–lime); }
+
+.body-mini {
+width: 50px; height: 90px;
+}
+
+.ba-weight {
+font-family: ‘Syne’, sans-serif;
+font-size: 18px;
+font-weight: 800;
+}
+
+.ba-box.future .ba-weight { color: var(–lime); }
+
+.progress-section {
+padding: 0 20px 16px;
+}
+
+.progress-label {
+display: flex;
+justify-content: space-between;
+font-size: 12px;
+color: var(–text2);
+margin-bottom: 8px;
+}
+
+.progress-bar {
+height: 6px;
+background: var(–card2);
+border-radius: 3px;
+overflow: hidden;
+}
+
+.progress-fill {
+height: 100%;
+background: var(–lime);
+border-radius: 3px;
+width: 34%;
+transition: width 1s ease;
+}
+
+/* Stats row */
+.stats-row {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 10px;
+padding: 0 16px 20px;
+}
+
+.stat-card {
+background: var(–card);
+border-radius: 18px;
+padding: 16px 12px;
+border: 1px solid #2a2a2a;
+text-align: center;
+}
+
+.stat-icon { font-size: 20px; margin-bottom: 6px; }
+
+.stat-value {
+font-family: ‘Syne’, sans-serif;
+font-size: 20px;
+font-weight: 800;
+line-height: 1;
+}
+
+.stat-label {
+font-size: 10px;
+color: var(–text2);
+margin-top: 4px;
+}
+
+/* Today workout */
+.workout-card {
+margin: 0 16px 20px;
+background: linear-gradient(135deg, #1C2B0A, #111a05);
+border-radius: 24px;
+padding: 20px;
+border: 1px solid rgba(200,241,53,0.2);
+display: flex;
+align-items: center;
+gap: 16px;
+}
+
+.workout-icon {
+width: 52px; height: 52px;
+background: var(–lime);
+border-radius: 14px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 24px;
+flex-shrink: 0;
+}
+
+.workout-info { flex: 1; }
+
+.workout-name {
+font-family: ‘Syne’, sans-serif;
+font-size: 15px;
+font-weight: 700;
+}
+
+.workout-meta {
+font-size: 12px;
+color: var(–text2);
+margin-top: 4px;
+}
+
+.btn-small {
+padding: 10px 16px;
+background: var(–lime);
+color: var(–black);
+border: none;
+border-radius: 12px;
+font-family: ‘Syne’, sans-serif;
+font-size: 12px;
+font-weight: 700;
+cursor: pointer;
+white-space: nowrap;
+}
+
+/* ===== SCREEN 3: FITMAP ===== */
+.map-container {
+height: 320px;
+background: #0f1a10;
+position: relative;
+overflow: hidden;
+}
+
+.map-grid {
+position: absolute; inset: 0;
+background-image:
+linear-gradient(rgba(200,241,53,0.04) 1px, transparent 1px),
+linear-gradient(90deg, rgba(200,241,53,0.04) 1px, transparent 1px);
+background-size: 40px 40px;
+}
+
+.map-roads {
+position: absolute; inset: 0;
+}
+
+.map-pin {
+position: absolute;
+display: flex;
+flex-direction: column;
+align-items: center;
+cursor: pointer;
+transition: transform 0.2s;
+}
+
+.map-pin:hover { transform: scale(1.1); }
+
+.pin-avatar {
+width: 40px; height: 40px;
+border-radius: 50%;
+border: 3px solid var(–lime);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 18px;
+background: var(–card);
+box-shadow: 0 0 20px rgba(200,241,53,0.3);
+}
+
+.pin-avatar.me {
+border-color: var(–accent);
+box-shadow: 0 0 20px rgba(255,107,53,0.4);
+animation: meGlow 2s ease-in-out infinite;
+}
+
+@keyframes meGlow {
+0%, 100% { box-shadow: 0 0 15px rgba(255,107,53,0.4); }
+50% { box-shadow: 0 0 30px rgba(255,107,53,0.7); }
+}
+
+.pin-name {
+font-size: 10px;
+font-weight: 600;
+color: var(–text);
+background: rgba(0,0,0,0.8);
+padding: 2px 6px;
+border-radius: 6px;
+margin-top: 4px;
+white-space: nowrap;
+}
+
+.map-overlay-top {
+position: absolute;
+top: 16px; left: 16px; right: 16px;
+display: flex;
+gap: 8px;
+}
+
+.map-search {
+flex: 1;
+background: rgba(20,20,20,0.9);
+backdrop-filter: blur(10px);
+border: 1px solid #333;
+border-radius: 12px;
+padding: 10px 14px;
+font-size: 13px;
+color: var(–text);
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.map-filter-btn {
+background: rgba(200,241,53,0.9);
+border: none;
+border-radius: 12px;
+padding: 10px 14px;
+font-size: 16px;
+cursor: pointer;
+}
+
+.map-status-btn {
+position: absolute;
+bottom: 16px;
+left: 50%;
+transform: translateX(-50%);
+background: var(–lime);
+color: var(–black);
+border: none;
+border-radius: 20px;
+padding: 10px 24px;
+font-family: ‘Syne’, sans-serif;
+font-size: 12px;
+font-weight: 700;
+cursor: pointer;
+display: flex;
+align-items: center;
+gap: 6px;
+white-space: nowrap;
+}
+
+.online-dot {
+width: 8px; height: 8px;
+background: #00ff88;
+border-radius: 50%;
+animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.3; }
+}
+
+/* Nearby users list */
+.nearby-list {
+padding: 0 16px;
+}
+
+.nearby-card {
+background: var(–card);
+border-radius: 18px;
+padding: 14px 16px;
+margin-bottom: 10px;
+display: flex;
+align-items: center;
+gap: 14px;
+border: 1px solid #2a2a2a;
+cursor: pointer;
+transition: border-color 0.2s;
+}
+
+.nearby-card:hover { border-color: var(–lime); }
+
+.nearby-avatar {
+width: 46px; height: 46px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 20px;
+flex-shrink: 0;
+position: relative;
+}
+
+.online-badge {
+position: absolute;
+bottom: 0; right: 0;
+width: 12px; height: 12px;
+background: #00ff88;
+border-radius: 50%;
+border: 2px solid var(–card);
+}
+
+.nearby-info { flex: 1; }
+
+.nearby-name {
+font-family: ‘Syne’, sans-serif;
+font-size: 14px;
+font-weight: 700;
+}
+
+.nearby-meta {
+font-size: 11px;
+color: var(–text2);
+margin-top: 3px;
+display: flex;
+gap: 8px;
+flex-wrap: wrap;
+}
+
+.tag {
+background: var(–card2);
+padding: 2px 8px;
+border-radius: 6px;
+font-size: 10px;
+color: var(–text2);
+}
+
+.tag.sport { color: var(–blue); background: rgba(79,195,247,0.1); }
+.tag.goal { color: var(–lime); background: rgba(200,241,53,0.1); }
+
+.chat-btn {
+width: 36px; height: 36px;
+background: rgba(200,241,53,0.15);
+border-radius: 10px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 16px;
+cursor: pointer;
+border: 1px solid rgba(200,241,53,0.2);
+flex-shrink: 0;
+}
+
+/* ===== SCREEN 4: CHAT ===== */
+.chat-header {
+padding: 20px 24px 16px;
+display: flex;
+align-items: center;
+gap: 12px;
+border-bottom: 1px solid #1e1e1e;
+}
+
+.chat-avatar-lg {
+width: 44px; height: 44px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 22px;
+background: var(–card);
+border: 2px solid var(–lime);
+position: relative;
+flex-shrink: 0;
+}
+
+.chat-header-info { flex: 1; }
+
+.chat-header-name {
+font-family: ‘Syne’, sans-serif;
+font-size: 15px;
+font-weight: 700;
+}
+
+.chat-header-status {
+font-size: 11px;
+color: #00ff88;
+}
+
+.chat-messages {
+padding: 16px 16px 10px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+height: 280px;
+overflow-y: auto;
+}
+
+.msg {
+display: flex;
+gap: 8px;
+max-width: 85%;
+}
+
+.msg.me { align-self: flex-end; flex-direction: row-reverse; }
+
+.msg-avatar {
+width: 28px; height: 28px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 14px;
+flex-shrink: 0;
+background: var(–card2);
+}
+
+.msg-bubble {
+background: var(–card);
+border-radius: 16px;
+border-bottom-left-radius: 4px;
+padding: 10px 14px;
+font-size: 13px;
+line-height: 1.4;
+border: 1px solid #2a2a2a;
+}
+
+.msg.me .msg-bubble {
+background: rgba(200,241,53,0.15);
+border-color: rgba(200,241,53,0.2);
+border-radius: 16px;
+border-bottom-right-radius: 4px;
+color: var(–lime);
+}
+
+.msg-time {
+font-size: 10px;
+color: var(–text2);
+margin-top: 4px;
+text-align: right;
+}
+
+.session-invite {
+background: linear-gradient(135deg, #1a2a0a, #111);
+border: 1px solid rgba(200,241,53,0.3);
+border-radius: 16px;
+padding: 14px;
+margin: 4px 0;
+}
+
+.invite-title {
+font-family: ‘Syne’, sans-serif;
+font-size: 13px;
+font-weight: 700;
+margin-bottom: 6px;
+}
+
+.invite-details {
+font-size: 11px;
+color: var(–text2);
+margin-bottom: 10px;
+}
+
+.invite-btns {
+display: flex;
+gap: 8px;
+}
+
+.btn-accept {
+flex: 1;
+padding: 8px;
+background: var(–lime);
+color: var(–black);
+border: none;
+border-radius: 10px;
+font-size: 12px;
+font-weight: 700;
+cursor: pointer;
+}
+
+.btn-decline {
+flex: 1;
+padding: 8px;
+background: var(–card2);
+color: var(–text2);
+border: none;
+border-radius: 10px;
+font-size: 12px;
+cursor: pointer;
+}
+
+.chat-input-bar {
+padding: 10px 16px;
+display: flex;
+gap: 8px;
+align-items: center;
+border-top: 1px solid #1e1e1e;
+}
+
+.chat-input {
+flex: 1;
+background: var(–card);
+border: 1px solid #2a2a2a;
+border-radius: 20px;
+padding: 10px 16px;
+font-size: 13px;
+color: var(–text);
+outline: none;
+}
+
+.send-btn {
+width: 38px; height: 38px;
+background: var(–lime);
+border: none;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+font-size: 16px;
+flex-shrink: 0;
+}
+
+/* ===== SCREEN 5: COACH ===== */
+.coach-hero {
+margin: 16px;
+background: linear-gradient(135deg, #1a2a0a, #0f1a05);
+border-radius: 24px;
+padding: 24px;
+border: 1px solid rgba(200,241,53,0.2);
+display: flex;
+gap: 16px;
+align-items: center;
+}
+
+.coach-avatar-lg {
+width: 64px; height: 64px;
+border-radius: 50%;
+background: linear-gradient(135deg, var(–lime), #88b000);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 30px;
+flex-shrink: 0;
+}
+
+.coach-info { flex: 1; }
+
+.coach-name {
+font-family: ‘Syne’, sans-serif;
+font-size: 18px;
+font-weight: 800;
+}
+
+.coach-role {
+font-size: 12px;
+color: var(–lime);
+margin-top: 2px;
+}
+
+.coach-rating {
+font-size: 12px;
+color: var(–text2);
+margin-top: 6px;
+}
+
+.coach-tabs {
+display: flex;
+gap: 8px;
+padding: 0 16px 16px;
+}
+
+.coach-tab {
+padding: 8px 18px;
+border-radius: 20px;
+border: 1px solid #333;
+background: transparent;
+color: var(–text2);
+font-size: 13px;
+cursor: pointer;
+font-family: ‘DM Sans’, sans-serif;
+}
+
+.coach-tab.active {
+background: rgba(200,241,53,0.15);
+border-color: var(–lime);
+color: var(–lime);
+font-weight: 600;
+}
+
+.coach-list {
+padding: 0 16px;
+}
+
+.coach-card {
+background: var(–card);
+border-radius: 20px;
+padding: 16px;
+margin-bottom: 12px;
+display: flex;
+gap: 14px;
+align-items: center;
+border: 1px solid #2a2a2a;
+cursor: pointer;
+transition: border-color 0.2s;
+}
+
+.coach-card:hover { border-color: rgba(200,241,53,0.3); }
+
+.coach-card-avatar {
+width: 52px; height: 52px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 24px;
+flex-shrink: 0;
+background: var(–card2);
+}
+
+.coach-card-info { flex: 1; }
+
+.coach-card-name {
+font-family: ‘Syne’, sans-serif;
+font-size: 14px;
+font-weight: 700;
+}
+
+.coach-card-spec {
+font-size: 11px;
+color: var(–text2);
+margin-top: 3px;
+}
+
+.coach-card-price {
+text-align: right;
+}
+
+.price-value {
+font-family: ‘Syne’, sans-serif;
+font-size: 15px;
+font-weight: 800;
+color: var(–lime);
+}
+
+.price-unit {
+font-size: 10px;
+color: var(–text2);
+}
+
+.ai-coach-bar {
+margin: 0 16px 16px;
+background: linear-gradient(135deg, #0d1a2a, #050d15);
+border: 1px solid rgba(79,195,247,0.2);
+border-radius: 20px;
+padding: 16px;
+display: flex;
+align-items: center;
+gap: 14px;
+cursor: pointer;
+}
+
+.ai-icon {
+width: 48px; height: 48px;
+background: rgba(79,195,247,0.15);
+border-radius: 14px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 22px;
+flex-shrink: 0;
+border: 1px solid rgba(79,195,247,0.2);
+}
+
+.ai-text { flex: 1; }
+
+.ai-title {
+font-family: ‘Syne’, sans-serif;
+font-size: 14px;
+font-weight: 700;
+color: var(–blue);
+}
+
+.ai-sub {
+font-size: 11px;
+color: var(–text2);
+margin-top: 3px;
+}
+
+/* ===== SCREEN 6: PLAN ===== */
+.plan-header {
+padding: 20px 24px 16px;
+}
+
+.plan-title {
+font-family: ‘Syne’, sans-serif;
+font-size: 22px;
+font-weight: 800;
+}
+
+.plan-sub {
+font-size: 13px;
+color: var(–text2);
+margin-top: 4px;
+}
+
+.week-days {
+display: flex;
+gap: 6px;
+padding: 0 16px 16px;
+overflow-x: auto;
+}
+
+.day-chip {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 4px;
+padding: 10px 12px;
+border-radius: 14px;
+background: var(–card);
+border: 1px solid #2a2a2a;
+min-width: 48px;
+cursor: pointer;
+transition: all 0.2s;
+flex-shrink: 0;
+}
+
+.day-chip.today {
+background: var(–lime);
+border-color: var(–lime);
+}
+
+.day-chip.done {
+border-color: rgba(200,241,53,0.3);
+background: rgba(200,241,53,0.08);
+}
+
+.day-letter {
+font-size: 10px;
+font-weight: 700;
+color: var(–text2);
+text-transform: uppercase;
+}
+
+.day-chip.today .day-letter { color: var(–black); }
+
+.day-number {
+font-family: ‘Syne’, sans-serif;
+font-size: 15px;
+font-weight: 800;
+}
+
+.day-chip.today .day-number { color: var(–black); }
+
+.day-dot {
+width: 6px; height: 6px;
+border-radius: 50%;
+background: var(–lime);
+}
+
+.day-chip.today .day-dot { background: var(–black); }
+
+.exercise-list {
+padding: 0 16px;
+}
+
+.exercise-item {
+background: var(–card);
+border-radius: 18px;
+padding: 14px 16px;
+margin-bottom: 10px;
+display: flex;
+align-items: center;
+gap: 14px;
+border: 1px solid #2a2a2a;
+cursor: pointer;
+transition: all 0.2s;
+}
+
+.exercise-item:hover { border-color: rgba(200,241,53,0.3); }
+
+.exercise-item.done-ex {
+opacity: 0.6;
+border-color: rgba(200,241,53,0.2);
+}
+
+.ex-icon {
+width: 44px; height: 44px;
+border-radius: 12px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 20px;
+flex-shrink: 0;
+}
+
+.ex-info { flex: 1; }
+
+.ex-name {
+font-family: ‘Syne’, sans-serif;
+font-size: 14px;
+font-weight: 700;
+}
+
+.ex-meta {
+font-size: 11px;
+color: var(–text2);
+margin-top: 3px;
+}
+
+.ex-check {
+width: 26px; height: 26px;
+border-radius: 50%;
+border: 2px solid #333;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 12px;
+flex-shrink: 0;
+}
+
+.ex-check.done { background: var(–lime); border-color: var(–lime); color: var(–black); }
+
+/* Divider line on map */
+.divider {
+height: 1px;
+background: #1e1e1e;
+margin: 0 16px 16px;
+}
+
 </style>
 </head>
 <body>
 
-<nav>
-<div class="logo"><span class="glo">GLO</span><span class="fit">FIT</span></div>
-<ul class="nav-links">
-<li><a href="#features" data-en="Features" data-fr="Fonctionnalités">Features</a></li>
-<li><a href="#how" data-en="How" data-fr="Comment">How</a></li>
-<li><a href="#pricing" data-en="Pricing" data-fr="Tarifs">Pricing</a></li>
-<li><a href="#faq">FAQ</a></li>
-</ul>
-<div class="nav-right">
-<div class="lang-switch">
-<button class="lang-btn active" onclick="setLang('en')">EN</button>
-<button class="lang-btn" onclick="setLang('fr')">FR</button>
-</div>
-<a href="#download" class="cta-btn" data-en="Get Glofit" data-fr="Télécharger">Get Glofit</a>
-</div>
-</nav>
+<div class="app-label">✦ Glofit</div>
+<div class="app-subtitle">Prototype Interactif — Avril 2026</div>
 
-<section class="hero">
-<div class="hero-content">
-<div class="badge"><span class="dot"></span><span data-en="Powered by AI — Coming soon on iOS &amp; Android" data-fr="Propulsé par l'IA — Bientôt sur iOS et Android">Powered by AI — Coming soon on iOS &amp; Android</span></div>
-<h1 data-en-h="See your|future body|today." data-fr-h="Vois ton|futur corps|aujourd'hui.">See your<br><span class="accent">future body</span><br>today.</h1>
-<p data-en="Glofit uses AI to project your transformed body from day one — then builds a personalized fitness and nutrition plan to get you there." data-fr="Glofit utilise l'IA pour projeter ton corps transformé dès le premier jour — puis construit un plan fitness et nutrition personnalisé pour t'y amener.">Glofit uses AI to project your transformed body from day one — then builds a personalized fitness and nutrition plan to get you there.</p>
-<div class="btn-row">
-<a href="#download" class="btn-primary" data-en="Start your transformation →" data-fr="Démarre ta transformation →">Start your transformation →</a>
-<a href="#how" class="btn-secondary" data-en="How it works" data-fr="Comment ça marche">How it works</a>
-</div>
-</div>
-</section>
+<!-- NAV TABS -->
 
-<div class="stats">
-<div class="stats-grid">
-<div><div class="stat-num">AI</div><div class="stat-label" data-en="Powered" data-fr="Propulsé">Powered</div></div>
-<div><div class="stat-num">2</div><div class="stat-label" data-en="Languages" data-fr="Langues">Languages</div></div>
-<div><div class="stat-num">8</div><div class="stat-label" data-en="Features" data-fr="Fonctionnalités">Features</div></div>
-<div><div class="stat-num">24/7</div><div class="stat-label" data-en="AI Coach" data-fr="Coach IA">AI Coach</div></div>
-</div>
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showScreen('onboard')">Accueil</button>
+  <button class="nav-tab" onclick="showScreen('home')">Dashboard</button>
+  <button class="nav-tab" onclick="showScreen('fitmap')">FitMap</button>
+  <button class="nav-tab" onclick="showScreen('chat')">Chat</button>
+  <button class="nav-tab" onclick="showScreen('coach')">Coach</button>
+  <button class="nav-tab" onclick="showScreen('plan')">Plan</button>
 </div>
 
-<section id="features">
-<div class="container">
-<div class="section-label" data-en="— Features" data-fr="— Fonctionnalités">— Features</div>
-<h2 data-en-h="Everything you need to|transform" data-fr-h="Tout pour te|transformer">Everything you need to <span class="accent">transform</span></h2>
-<p class="section-desc" data-en="Eight powerful features built around one promise: help you become the person you see in your mind." data-fr="Huit fonctionnalités puissantes construites autour d'une promesse : t'aider à devenir la personne que tu imagines.">Eight powerful features built around one promise: help you become the person you see in your mind.</p>
-<div class="features">
-<div class="feature"><div class="feature-num">01 / AI VISION</div><div class="feature-icon">👁</div><h3 data-en="AI Body Projection" data-fr="Projection Corporelle IA">AI Body Projection</h3><p data-en="Upload 4 photos. Our AI generates your transformed body based on your goals. See the future you, from day one." data-fr="Téléverse 4 photos. Notre IA génère ton corps transformé selon tes objectifs. Vois ton futur, dès le premier jour.">Upload 4 photos. Our AI generates your transformed body based on your goals.</p></div>
-<div class="feature"><div class="feature-num">02 / FITNESS</div><div class="feature-icon">💪</div><h3 data-en="Smart Workouts" data-fr="Entraînements IA">Smart Workouts</h3><p data-en="Weekly fitness programs generated by AI based on your profile, goals, and available equipment." data-fr="Programmes fitness hebdomadaires générés par IA selon ton profil, tes objectifs et ton équipement.">Weekly fitness programs generated by AI based on your profile, goals, and available equipment.</p></div>
-<div class="feature"><div class="feature-num">03 / NUTRITION</div><div class="feature-icon">🥗</div><h3 data-en="Meal Plans" data-fr="Plans Alimentaires">Meal Plans</h3><p data-en="Personalized weekly meal plans. Macros calculated automatically. Allergies and preferences respected." data-fr="Plans alimentaires hebdomadaires personnalisés. Macros calculées automatiquement. Allergies respectées.">Personalized weekly meal plans. Macros calculated automatically.</p></div>
-<div class="feature"><div class="feature-num">04 / MAP</div><div class="feature-icon">📍</div><h3>FitMap</h3><p data-en="Discover training partners near you on an interactive map. Filter by sport, goal, or availability." data-fr="Découvre des partenaires d'entraînement près de chez toi sur une carte interactive. Filtre par sport, objectif ou disponibilité.">Discover training partners near you on an interactive map.</p></div>
-<div class="feature"><div class="feature-num">05 / CHAT</div><div class="feature-icon">💬</div><h3>FitChat</h3><p data-en="Message training partners. Organize sessions. Build your fitness community from your phone." data-fr="Envoie des messages à tes partenaires. Organise des sessions. Construis ta communauté fitness.">Message training partners. Organize sessions. Build your fitness community.</p></div>
-<div class="feature"><div class="feature-num">06 / COACH</div><div class="feature-icon">🎯</div><h3 data-en="24/7 AI Coach" data-fr="Coach IA 24/7">24/7 AI Coach</h3><p data-en="Ask anything, anytime. Form checks, motivation, nutrition advice. Plus certified human coaches." data-fr="Pose n'importe quelle question, à tout moment. Vérification de posture, motivation, conseils nutrition. Plus des coachs humains certifiés.">Ask anything, anytime. Form checks, motivation, nutrition advice.</p></div>
-<div class="feature"><div class="feature-num">07 / TRACKING</div><div class="feature-icon">📊</div><h3 data-en="Progress Tracking" data-fr="Suivi de Progression">Progress Tracking</h3><p data-en="Weekly photos, measurements, performance graphs. Watch yourself become your projection." data-fr="Photos hebdomadaires, mensurations, graphiques. Regarde-toi devenir ta projection.">Weekly photos, measurements, performance graphs.</p></div>
-<div class="feature"><div class="feature-num">08 / BILINGUAL</div><div class="feature-icon">🌍</div><h3 data-en="English &amp; Français" data-fr="Anglais &amp; Français">English &amp; Français</h3><p data-en="Automatic language detection. Imperial or metric. USD, CAD or EUR. Built for USA, Canada and France." data-fr="Détection automatique de la langue. Impérial ou métrique. USD, CAD ou EUR. Construit pour les USA, le Canada et la France.">Automatic language detection. Imperial or metric. USD, CAD or EUR.</p></div>
-<div class="feature"><div class="feature-num">09 / PRIVACY</div><div class="feature-icon">🔒</div><h3 data-en="Privacy First" data-fr="Confidentialité">Privacy First</h3><p data-en="Your photos are encrypted and never shared. GDPR, CCPA and PIPEDA compliant." data-fr="Tes photos sont chiffrées et jamais partagées. Conforme RGPD, CCPA et PIPEDA.">Your photos are encrypted and never shared.</p></div>
-</div>
-</div>
-</section>
+<!-- PHONE -->
 
-<section id="how" class="how">
-<div class="container">
-<div class="section-label" data-en="— How it works" data-fr="— Comment ça marche">— How it works</div>
-<h2 data-en-h="Three steps to|a new you" data-fr-h="Trois étapes vers|un nouveau toi">Three steps to <span class="accent">a new you</span></h2>
+<div class="phone">
 
-<div class="step">
-<div>
-<div class="step-num">01</div>
-<h3 data-en="Scan your body." data-fr="Scanne ton corps.">Scan your body.</h3>
-<p data-en="Four guided photos — front, sides, back. Our AI analyzes your current body composition in seconds." data-fr="Quatre photos guidées — face, côtés, dos. Notre IA analyse ta composition corporelle en secondes.">Four guided photos — front, sides, back. Our AI analyzes your current body composition in seconds.</p>
-<ul>
-<li data-en="Four-angle body capture" data-fr="Capture sous 4 angles">Four-angle body capture</li>
-<li data-en="Instant AI analysis" data-fr="Analyse IA instantanée">Instant AI analysis</li>
-<li data-en="Body fat estimate" data-fr="Estimation du taux de gras">Body fat estimate</li>
-<li data-en="Measurements projection" data-fr="Projection des mensurations">Measurements projection</li>
-</ul>
+  <!-- ===== SCREEN: ONBOARDING ===== -->
+
+  <div class="screen active" id="screen-onboard">
+    <div class="onboard-hero">
+      <div class="onboard-glow"></div>
+      <div class="body-figures">
+        <!-- Before body -->
+        <div class="body-fig">
+          <div class="body-silhouette">
+            <svg viewBox="0 0 60 120" fill="none">
+              <ellipse cx="30" cy="14" rx="10" ry="10" fill="#444"/>
+              <rect x="14" y="26" width="32" height="44" rx="8" fill="#444"/>
+              <rect x="8" y="28" width="10" height="30" rx="5" fill="#444"/>
+              <rect x="42" y="28" width="10" height="30" rx="5" fill="#444"/>
+              <rect x="16" y="68" width="12" height="40" rx="6" fill="#444"/>
+              <rect x="32" y="68" width="12" height="40" rx="6" fill="#444"/>
+            </svg>
+          </div>
+          <div class="fig-label" style="color:#666">Aujourd'hui</div>
+        </div>
+        <div class="arrow-between">→</div>
+        <!-- After body -->
+        <div class="body-fig">
+          <div class="body-silhouette">
+            <svg viewBox="0 0 60 120" fill="none">
+              <ellipse cx="30" cy="14" rx="9" ry="9" fill="#C8F135"/>
+              <rect x="17" y="26" width="26" height="40" rx="7" fill="#C8F135"/>
+              <rect x="9" y="28" width="9" height="28" rx="4.5" fill="#C8F135"/>
+              <rect x="42" y="28" width="9" height="28" rx="4.5" fill="#C8F135"/>
+              <rect x="18" y="64" width="10" height="42" rx="5" fill="#C8F135"/>
+              <rect x="32" y="64" width="10" height="42" rx="5" fill="#C8F135"/>
+            </svg>
+          </div>
+          <div class="fig-label" style="color:var(--lime)">Glofit You</div>
+        </div>
+      </div>
+    </div>
+
+```
+<div class="onboard-content">
+  <div class="logo-text">Glo<span>fit</span></div>
+  <div class="onboard-tagline">Vois ton futur corps aujourd'hui.<br>Entraîne-toi avec ta communauté.</div>
+
+  <div class="pills">
+    <span class="pill active">🤖 IA Body Scan</span>
+    <span class="pill active">📍 FitMap</span>
+    <span class="pill active">🏋️ Coach Pro</span>
+    <span class="pill active">🍎 Nutrition IA</span>
+    <span class="pill active">💬 FitChat</span>
+  </div>
+
+  <button class="btn-primary" onclick="showScreen('home')">Commencer gratuitement →</button>
+  <div class="btn-secondary">J'ai déjà un compte</div>
 </div>
-<div class="step-visual">
-<div class="visual-emoji">📸</div>
-<div class="visual-title" data-en="AI Body Scan" data-fr="Scan Corporel IA">AI Body Scan</div>
-<div class="visual-desc" data-en="185 lbs → 165 lbs|-4 in waist|12 weeks" data-fr="84 kg → 75 kg|-10 cm tour de taille|12 semaines">185 lbs → 165 lbs<br>-4 in waist<br>12 weeks</div>
-</div>
+```
+
+  </div>
+
+  <!-- ===== SCREEN: HOME DASHBOARD ===== -->
+
+  <div class="screen" id="screen-home">
+    <div class="home-header">
+      <div>
+        <div style="font-size:12px;color:var(--text2)">Mercredi, 15 Avril</div>
+        <div class="greeting">Bonjour, <span>Alex 👋</span></div>
+      </div>
+      <div class="avatar">A</div>
+    </div>
+
+```
+<!-- Transformation card -->
+<div class="section-title">Ma Transformation IA</div>
+<div class="transform-card">
+  <div class="transform-header">
+    <div class="transform-title">Avant → Après</div>
+    <div class="badge-ai">✦ IA Généré</div>
+  </div>
+  <div class="before-after">
+    <div class="ba-box">
+      <div class="ba-label">Aujourd'hui</div>
+      <div class="body-mini">
+        <svg viewBox="0 0 50 90" fill="none">
+          <ellipse cx="25" cy="10" rx="8" ry="8" fill="#444"/>
+          <rect x="11" y="20" width="28" height="34" rx="7" fill="#444"/>
+          <rect x="5" y="22" width="8" height="24" rx="4" fill="#444"/>
+          <rect x="37" y="22" width="8" height="24" rx="4" fill="#444"/>
+          <rect x="13" y="52" width="10" height="30" rx="5" fill="#444"/>
+          <rect x="27" y="52" width="10" height="30" rx="5" fill="#444"/>
+        </svg>
+      </div>
+      <div class="ba-weight">82 kg</div>
+    </div>
+    <div class="ba-box future">
+      <div class="ba-label">Glofit You</div>
+      <div class="body-mini">
+        <svg viewBox="0 0 50 90" fill="none">
+          <ellipse cx="25" cy="10" rx="7" ry="7" fill="#C8F135"/>
+          <rect x="14" y="20" width="22" height="30" rx="6" fill="#C8F135"/>
+          <rect x="6" y="22" width="8" height="22" rx="4" fill="#C8F135"/>
+          <rect x="36" y="22" width="8" height="22" rx="4" fill="#C8F135"/>
+          <rect x="14" y="48" width="9" height="32" rx="4.5" fill="#C8F135"/>
+          <rect x="27" y="48" width="9" height="32" rx="4.5" fill="#C8F135"/>
+        </svg>
+      </div>
+      <div class="ba-weight">72 kg</div>
+    </div>
+  </div>
+  <div class="progress-section">
+    <div class="progress-label">
+      <span>Progression</span>
+      <span style="color:var(--lime)">34%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
 </div>
 
-<div class="step">
-<div class="step-visual">
-<div class="visual-emoji">💪</div>
-<div class="visual-title" data-en="Smart Plans" data-fr="Plans Intelligents">Smart Plans</div>
-<div class="visual-desc" data-en="Weekly workouts|Custom meal plans|Auto-adjusted" data-fr="Entraînements hebdo|Plans alimentaires|Auto-ajustés">Weekly workouts<br>Custom meal plans<br>Auto-adjusted</div>
-</div>
-<div>
-<div class="step-num">02</div>
-<h3 data-en="Get your plan." data-fr="Reçois ton plan.">Get your plan.</h3>
-<p data-en="AI generates a weekly workout and meal plan tailored to your goals, level, and equipment." data-fr="L'IA génère un plan d'entraînement et nutritionnel hebdomadaire adapté à tes objectifs.">AI generates a weekly workout and meal plan tailored to your goals.</p>
-<ul>
-<li data-en="Weekly workout programs" data-fr="Programmes hebdo">Weekly workout programs</li>
-<li data-en="Personalized meal plans" data-fr="Plans personnalisés">Personalized meal plans</li>
-<li data-en="Macro calculations" data-fr="Calculs des macros">Macro calculations</li>
-<li data-en="Automatic adjustments" data-fr="Ajustements automatiques">Automatic adjustments</li>
-</ul>
-</div>
+<!-- Stats -->
+<div class="section-title">Cette semaine</div>
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-icon">🔥</div>
+    <div class="stat-value" style="color:var(--accent)">4</div>
+    <div class="stat-label">Séances</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">⚡</div>
+    <div class="stat-value" style="color:var(--lime)">1 840</div>
+    <div class="stat-label">Calories</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">👥</div>
+    <div class="stat-value" style="color:var(--blue)">3</div>
+    <div class="stat-label">FitPals</div>
+  </div>
 </div>
 
-<div class="step">
-<div>
-<div class="step-num">03</div>
-<h3 data-en="Find your crew." data-fr="Trouve ton équipe.">Find your crew.</h3>
-<p data-en="FitMap shows training partners near you. FitChat lets you organize sessions." data-fr="FitMap te montre des partenaires près de chez toi. FitChat te permet d'organiser des sessions.">FitMap shows training partners near you. FitChat lets you organize sessions.</p>
-<ul>
-<li data-en="Geolocated discovery" data-fr="Découverte géolocalisée">Geolocated discovery</li>
-<li data-en="Sport &amp; goal filters" data-fr="Filtres sport et objectif">Sport &amp; goal filters</li>
-<li data-en="Real-time messaging" data-fr="Messagerie temps réel">Real-time messaging</li>
-<li data-en="Session invitations" data-fr="Invitations aux sessions">Session invitations</li>
-</ul>
+<!-- Today workout -->
+<div class="section-title">Aujourd'hui</div>
+<div class="workout-card">
+  <div class="workout-icon">💪</div>
+  <div class="workout-info">
+    <div class="workout-name">Upper Body Power</div>
+    <div class="workout-meta">6 exercices · 45 min · Gym</div>
+  </div>
+  <button class="btn-small" onclick="showScreen('plan')">Démarrer</button>
 </div>
-<div class="step-visual">
-<div class="visual-emoji">🗺</div>
-<div class="visual-title">FitMap</div>
-<div class="visual-desc" data-en="Sarah K. · 0.8 mi|Marcus T. · 1.2 mi|Jen L. · 1.5 mi" data-fr="Sarah K. · 1,3 km|Marcus T. · 1,9 km|Jen L. · 2,4 km">Sarah K. · 0.8 mi<br>Marcus T. · 1.2 mi<br>Jen L. · 1.5 mi</div>
-</div>
-</div>
-</div>
-</section>
 
-<section id="pricing">
-<div class="container">
-<div class="section-label" data-en="— Pricing" data-fr="— Tarifs">— Pricing</div>
-<h2 data-en-h="Invest in|yourself" data-fr-h="Investis en|toi-même">Invest in <span class="accent">yourself</span></h2>
-<p class="section-desc" data-en="Start free. Upgrade when ready. Cancel anytime." data-fr="Commence gratuitement. Passe au supérieur quand tu veux. Annule à tout moment.">Start free. Upgrade when ready. Cancel anytime.</p>
-<div class="pricing">
-<div class="price">
-<div class="price-name" data-en="Free" data-fr="Gratuit">Free</div>
-<div class="price-amount"><span class="currency">$</span>0</div>
-<div class="price-desc" data-en="Try before you commit" data-fr="Essaie avant de t'engager">Try before you commit</div>
-<ul>
-<li data-en="Profile &amp; body scan (1)" data-fr="Profil et scan (1)">Profile &amp; body scan (1)</li>
-<li data-en="Sample 1-week plan" data-fr="Plan d'une semaine">Sample 1-week plan</li>
-<li data-en="Basic FitMap access" data-fr="FitMap de base">Basic FitMap access</li>
-<li data-en="Community features" data-fr="Communauté">Community features</li>
-</ul>
-<a href="#download" class="btn" data-en="Get started" data-fr="Commencer">Get started</a>
+<!-- FitMap teaser -->
+<div class="section-title">FitPals près de toi</div>
+<div class="workout-card" style="background:linear-gradient(135deg,#0d1a2a,#050d15);border-color:rgba(79,195,247,0.2);">
+  <div class="workout-icon" style="background:rgba(79,195,247,0.2);font-size:20px;">📍</div>
+  <div class="workout-info">
+    <div class="workout-name" style="color:var(--blue)">5 personnes dispo</div>
+    <div class="workout-meta">Dans un rayon de 3 km</div>
+  </div>
+  <button class="btn-small" style="background:var(--blue);color:#000" onclick="showScreen('fitmap')">Voir</button>
 </div>
-<div class="price featured" data-popular="MOST POPULAR">
-<div class="price-name" data-en="Essential" data-fr="Essentiel">Essential</div>
-<div class="price-amount"><span class="currency">$</span>9.99<span class="period" data-en="/mo" data-fr="/mois">/mo</span></div>
-<div class="price-desc" data-en="Everything to start" data-fr="Tout pour commencer">Everything to start</div>
-<ul>
-<li data-en="Unlimited AI scans" data-fr="Scans IA illimités">Unlimited AI scans</li>
-<li data-en="Personalized workouts" data-fr="Entraînements personnalisés">Personalized workouts</li>
-<li data-en="Custom meal plans" data-fr="Plans alimentaires">Custom meal plans</li>
-<li data-en="Full FitMap &amp; FitChat" data-fr="FitMap et FitChat">Full FitMap &amp; FitChat</li>
-<li data-en="Progress tracking" data-fr="Suivi de progression">Progress tracking</li>
-</ul>
-<a href="#download" class="btn" data-en="Start Essential" data-fr="Commencer">Start Essential</a>
-</div>
-<div class="price">
-<div class="price-name">Premium</div>
-<div class="price-amount"><span class="currency">$</span>19.99<span class="period" data-en="/mo" data-fr="/mois">/mo</span></div>
-<div class="price-desc" data-en="The full experience" data-fr="L'expérience complète">The full experience</div>
-<ul>
-<li data-en="Everything in Essential" data-fr="Tout Essentiel">Everything in Essential</li>
-<li data-en="AI body projection" data-fr="Projection corporelle IA">AI body projection</li>
-<li data-en="24/7 AI Coach" data-fr="Coach IA 24/7">24/7 AI Coach</li>
-<li data-en="Priority support" data-fr="Support prioritaire">Priority support</li>
-<li data-en="Human coaches" data-fr="Coachs humains">Human coaches</li>
-</ul>
-<a href="#download" class="btn" data-en="Go Premium" data-fr="Passer Premium">Go Premium</a>
-</div>
-</div>
-<p style="text-align:center;color:#888;margin-top:40px;font-size:14px" data-en="Save 33% annually · Prices in USD — CAD &amp; EUR available" data-fr="Économise 33% en annuel · Prix en USD — CAD et EUR disponibles">Save 33% annually · Prices in USD — CAD &amp; EUR available</p>
-</div>
-</section>
+```
 
-<section id="faq" class="how">
-<div class="container">
-<div class="section-label" data-en="— FAQ" data-fr="— FAQ">— FAQ</div>
-<h2 data-en-h="Questions,|answered" data-fr-h="Questions,|réponses">Questions, <span class="accent">answered</span></h2>
-<div style="max-width:800px;margin:60px auto 0">
-<details><summary data-en="How does the AI body projection work?" data-fr="Comment fonctionne la projection corporelle IA ?">How does the AI body projection work?</summary><div class="faq-answer" data-en="Upload four guided photos. Our AI analyzes your body composition and generates a realistic projection of your body once you reach your goal. Updates every 4 weeks based on real progress. Photos are encrypted and never shared." data-fr="Téléverse quatre photos guidées. Notre IA analyse ta composition corporelle et génère une projection réaliste de ton corps une fois ton objectif atteint. Mise à jour toutes les 4 semaines. Les photos sont chiffrées et jamais partagées.">Upload four guided photos. Our AI analyzes your body composition and generates a realistic projection.</div></details>
-<details><summary data-en="Which languages does Glofit support?" data-fr="Quelles langues Glofit supporte ?">Which languages does Glofit support?</summary><div class="faq-answer" data-en="Automatic detection based on App Store region or device settings. English (USA, Canada, UK, etc.) and Français (Québec, France, Belgique, Suisse). Change anytime in Settings." data-fr="Détection automatique selon la région de l'App Store. Anglais (USA, Canada, Royaume-Uni) et français (Québec, France, Belgique, Suisse). Changement possible dans les Paramètres.">Automatic detection based on App Store region. English and Français.</div></details>
-<details><summary data-en="Is my data secure?" data-fr="Mes données sont-elles sécurisées ?">Is my data secure?</summary><div class="faq-answer" data-en="Yes. All photos encrypted at rest and in transit. GDPR, CCPA and PIPEDA compliant. We never sell data, never share photos, and you can delete everything anytime." data-fr="Oui. Toutes les photos sont chiffrées. Conforme RGPD, CCPA et PIPEDA. Nous ne vendons jamais tes données et tu peux tout supprimer à tout moment.">Yes. All photos encrypted. GDPR, CCPA and PIPEDA compliant.</div></details>
-<details><summary data-en="Do I need a gym membership?" data-fr="Ai-je besoin d'un abonnement gym ?">Do I need a gym membership?</summary><div class="faq-answer" data-en="No. You tell Glofit what equipment you have — full gym, home, bodyweight, or outdoor only. Your AI-generated plan adapts accordingly." data-fr="Non. Tu indiques à Glofit quel équipement tu as — gym complète, maison, poids du corps, ou extérieur. Ton plan IA s'adapte.">No. Your AI-generated plan adapts to what you have.</div></details>
-<details><summary data-en="Can I cancel anytime?" data-fr="Puis-je annuler à tout moment ?">Can I cancel anytime?</summary><div class="faq-answer" data-en="Yes. Cancel in App Store or Google Play settings. Keep access until end of billing period. No fees, no questions asked." data-fr="Oui. Annule dans les paramètres de l'App Store ou Google Play. Tu gardes l'accès jusqu'à la fin de la période. Aucun frais.">Yes. Cancel anytime, no fees.</div></details>
-<details><summary data-en="When is Glofit available?" data-fr="Quand Glofit sera disponible ?">When is Glofit available?</summary><div class="faq-answer" data-en="Launching first in USA and Canada on iOS and Google Play, then France and Europe. Join the waitlist for early access." data-fr="Lancement d'abord aux USA et au Canada sur iOS et Google Play, puis France et Europe. Rejoins la liste d'attente pour un accès anticipé.">Launching first in USA and Canada, then France and Europe.</div></details>
-</div>
-</div>
-</section>
+  </div>
 
-<section id="download" class="cta-final">
-<h2 data-en-h="Become what|you project." data-fr-h="Deviens ce|que tu projettes.">Become what<br>you <span class="accent">project.</span></h2>
-<div class="btn-row">
-<a href="#" class="btn-primary" data-en="Join the waitlist →" data-fr="Rejoindre la liste →">Join the waitlist →</a>
-<a href="#features" class="btn-secondary" data-en="Learn more" data-fr="En savoir plus">Learn more</a>
-</div>
-<p style="margin-top:32px;color:#4a4a4a;font-size:12px;letter-spacing:2px" data-en="COMING SOON — APP STORE · GOOGLE PLAY" data-fr="BIENTÔT — APP STORE · GOOGLE PLAY">COMING SOON — APP STORE · GOOGLE PLAY</p>
-</section>
+  <!-- ===== SCREEN: FITMAP ===== -->
 
-<footer>
-<div class="footer-grid">
-<div class="footer-brand">
-<div class="logo"><span class="glo">GLO</span><span class="fit">FIT</span></div>
-<p data-en="Become what you project. AI-powered fitness and nutrition — built in Montréal for the world." data-fr="Deviens ce que tu projettes. Fitness et nutrition propulsés par l'IA — construit à Montréal.">Become what you project.</p>
+  <div class="screen" id="screen-fitmap">
+    <div style="padding:20px 24px 12px">
+      <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800">FitMap <span style="color:var(--lime)">📍</span></div>
+      <div style="font-size:13px;color:var(--text2);margin-top:4px">Trouve des partenaires d'entraînement</div>
+    </div>
+
+```
+<div class="map-container">
+  <div class="map-grid"></div>
+
+  <!-- Fake roads -->
+  <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.15" viewBox="0 0 390 320">
+    <line x1="0" y1="120" x2="390" y2="140" stroke="#C8F135" stroke-width="2"/>
+    <line x1="0" y1="200" x2="390" y2="190" stroke="#C8F135" stroke-width="1.5"/>
+    <line x1="100" y1="0" x2="120" y2="320" stroke="#C8F135" stroke-width="1.5"/>
+    <line x1="260" y1="0" x2="240" y2="320" stroke="#C8F135" stroke-width="2"/>
+    <circle cx="195" cy="160" r="40" stroke="#C8F135" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
+  </svg>
+
+  <!-- Map pins -->
+  <div class="map-pin" style="top:110px;left:170px">
+    <div class="pin-avatar me">😊</div>
+    <div class="pin-name" style="color:var(--accent)">Toi</div>
+  </div>
+  <div class="map-pin" style="top:70px;left:230px" onclick="showScreen('chat')">
+    <div class="pin-avatar">🏃</div>
+    <div class="pin-name">Karim</div>
+  </div>
+  <div class="map-pin" style="top:150px;left:100px" onclick="showScreen('chat')">
+    <div class="pin-avatar">💪</div>
+    <div class="pin-name">Sofia</div>
+  </div>
+  <div class="map-pin" style="top:90px;left:110px" onclick="showScreen('chat')">
+    <div class="pin-avatar">🧘</div>
+    <div class="pin-name">Marie</div>
+  </div>
+  <div class="map-pin" style="top:170px;left:270px" onclick="showScreen('chat')">
+    <div class="pin-avatar">🏋️</div>
+    <div class="pin-name">Lucas</div>
+  </div>
+
+  <!-- Search -->
+  <div class="map-overlay-top">
+    <div class="map-search">
+      <span>🔍</span>
+      <span style="color:var(--text2);font-size:13px">Rechercher un sport...</span>
+    </div>
+    <button class="map-filter-btn">⚙️</button>
+  </div>
+
+  <button class="map-status-btn">
+    <div class="online-dot"></div>
+    Dispo pour s'entraîner
+  </button>
 </div>
-<div class="footer-col"><h4 data-en="Product" data-fr="Produit">Product</h4><ul>
-<li><a href="#features" data-en="Features" data-fr="Fonctionnalités">Features</a></li>
-<li><a href="#how" data-en="How it works" data-fr="Comment">How it works</a></li>
-<li><a href="#pricing" data-en="Pricing" data-fr="Tarifs">Pricing</a></li>
-<li><a href="#faq">FAQ</a></li>
-</ul></div>
-<div class="footer-col"><h4 data-en="Company" data-fr="Entreprise">Company</h4><ul>
-<li><a href="#" data-en="About" data-fr="À propos">About</a></li>
-<li><a href="#" data-en="Careers" data-fr="Carrières">Careers</a></li>
-<li><a href="#" data-en="Press" data-fr="Presse">Press</a></li>
-<li><a href="#">Contact</a></li>
-</ul></div>
-<div class="footer-col"><h4 data-en="Legal" data-fr="Légal">Legal</h4><ul>
-<li><a href="#" data-en="Privacy" data-fr="Confidentialité">Privacy</a></li>
-<li><a href="#" data-en="Terms" data-fr="Conditions">Terms</a></li>
-<li><a href="#">CCPA</a></li>
-<li><a href="#">PIPEDA</a></li>
-</ul></div>
+
+<div style="padding:16px 16px 10px;display:flex;justify-content:space-between;align-items:center">
+  <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700">5 FitPals dans ta zone</div>
+  <div style="font-size:12px;color:var(--text2)">3 km ↗</div>
 </div>
-<div class="footer-bottom" data-en="© 2026 Glofit. Made in Montréal. — Become what you project." data-fr="© 2026 Glofit. Fait à Montréal. — Deviens ce que tu projettes.">© 2026 Glofit.</div>
-</footer>
+
+<div class="nearby-list">
+  <div class="nearby-card" onclick="showScreen('chat')">
+    <div class="nearby-avatar" style="background:rgba(200,241,53,0.1)">
+      🏃
+      <div class="online-badge"></div>
+    </div>
+    <div class="nearby-info">
+      <div class="nearby-name">Karim, 26</div>
+      <div class="nearby-meta">
+        <span class="tag sport">🏃 Running</span>
+        <span class="tag goal">Perte de poids</span>
+        <span style="font-size:10px;color:var(--text2)">0.8 km</span>
+      </div>
+    </div>
+    <div class="chat-btn">💬</div>
+  </div>
+
+  <div class="nearby-card" onclick="showScreen('chat')">
+    <div class="nearby-avatar" style="background:rgba(79,195,247,0.1)">
+      💪
+      <div class="online-badge"></div>
+    </div>
+    <div class="nearby-info">
+      <div class="nearby-name">Sofia, 29</div>
+      <div class="nearby-meta">
+        <span class="tag sport">🏋️ Musculation</span>
+        <span class="tag goal">Tonification</span>
+        <span style="font-size:10px;color:var(--text2)">1.2 km</span>
+      </div>
+    </div>
+    <div class="chat-btn">💬</div>
+  </div>
+
+  <div class="nearby-card" onclick="showScreen('chat')">
+    <div class="nearby-avatar" style="background:rgba(255,107,53,0.1)">
+      🧘
+      <div class="online-badge" style="background:#ff9900"></div>
+    </div>
+    <div class="nearby-info">
+      <div class="nearby-name">Marie, 32</div>
+      <div class="nearby-meta">
+        <span class="tag sport">🧘 Yoga</span>
+        <span class="tag goal">Santé générale</span>
+        <span style="font-size:10px;color:var(--text2)">1.9 km</span>
+      </div>
+    </div>
+    <div class="chat-btn">💬</div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- ===== SCREEN: CHAT ===== -->
+
+  <div class="screen" id="screen-chat">
+    <div class="chat-header">
+      <div class="chat-avatar-lg">🏃</div>
+      <div class="chat-header-info">
+        <div class="chat-header-name">Karim</div>
+        <div class="chat-header-status">● En ligne · 0.8 km</div>
+      </div>
+      <div style="font-size:20px;cursor:pointer">📍</div>
+    </div>
+
+```
+<div class="chat-messages" id="chatMessages">
+  <div class="msg">
+    <div class="msg-avatar">🏃</div>
+    <div>
+      <div class="msg-bubble">Salut ! J'ai vu que t'es dispo pour courir. T'as l'habitude de faire quelle distance ?</div>
+      <div class="msg-time">14:22</div>
+    </div>
+  </div>
+
+  <div class="msg me">
+    <div class="msg-avatar">😊</div>
+    <div>
+      <div class="msg-bubble">Hey ! Ouais, en général 5-8 km. Tu connais les pistes du Parc du Mont-Royal ?</div>
+      <div class="msg-time">14:24</div>
+    </div>
+  </div>
+
+  <div class="msg">
+    <div class="msg-avatar">🏃</div>
+    <div>
+      <div class="msg-bubble">Parfait ! J'y vais souvent le matin. Demain 7h ça te va ? 🏃‍♂️</div>
+      <div class="msg-time">14:25</div>
+    </div>
+  </div>
+
+  <div class="msg">
+    <div class="msg-avatar">🏃</div>
+    <div>
+      <div class="session-invite">
+        <div class="invite-title">🗓️ Invitation Session</div>
+        <div class="invite-details">📍 Parc du Mont-Royal<br>📅 Demain, 7:00 AM · 8 km running</div>
+        <div class="invite-btns">
+          <button class="btn-accept">✓ Accepter</button>
+          <button class="btn-decline">✗ Décliner</button>
+        </div>
+      </div>
+      <div class="msg-time">14:26</div>
+    </div>
+  </div>
+</div>
+
+<div class="chat-input-bar">
+  <div class="chat-input" contenteditable="true" placeholder="Message...">Message...</div>
+  <button class="send-btn">➤</button>
+</div>
+```
+
+  </div>
+
+  <!-- ===== SCREEN: COACH ===== -->
+
+  <div class="screen" id="screen-coach">
+    <div style="padding:20px 24px 12px">
+      <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800">Coaches <span style="color:var(--lime)">🏆</span></div>
+      <div style="font-size:13px;color:var(--text2);margin-top:4px">Humains & IA — disponibles pour toi</div>
+    </div>
+
+```
+<!-- AI Coach -->
+<div class="ai-coach-bar">
+  <div class="ai-icon">🤖</div>
+  <div class="ai-text">
+    <div class="ai-title">Coach IA Glofit</div>
+    <div class="ai-sub">Disponible 24/7 · Analyse ton entraînement en temps réel</div>
+  </div>
+  <div style="font-size:20px">→</div>
+</div>
+
+<!-- My coach -->
+<div class="coach-hero">
+  <div class="coach-avatar-lg">👨‍💼</div>
+  <div class="coach-info">
+    <div class="coach-name">Marc Dubois</div>
+    <div class="coach-role">Ton coach personnel</div>
+    <div class="coach-rating">⭐ 4.9 · 127 clients · Montréal</div>
+  </div>
+  <button class="btn-small">Message</button>
+</div>
+
+<div class="coach-tabs">
+  <button class="coach-tab active">Disponibles</button>
+  <button class="coach-tab">Spécialités</button>
+  <button class="coach-tab">Avis</button>
+</div>
+
+<div class="coach-list">
+  <div class="coach-card">
+    <div class="coach-card-avatar" style="background:rgba(200,241,53,0.1)">🏋️</div>
+    <div class="coach-card-info">
+      <div class="coach-card-name">Sarah Chen</div>
+      <div class="coach-card-spec">Musculation · HIIT · Powerlifting<br><span style="color:#00ff88;font-size:10px">● Disponible maintenant</span></div>
+    </div>
+    <div class="coach-card-price">
+      <div class="price-value">45$</div>
+      <div class="price-unit">/séance</div>
+      <button class="btn-small" style="margin-top:6px;font-size:10px;padding:6px 10px">Réserver</button>
+    </div>
+  </div>
+
+  <div class="coach-card">
+    <div class="coach-card-avatar" style="background:rgba(79,195,247,0.1)">🧘</div>
+    <div class="coach-card-info">
+      <div class="coach-card-name">Amadou Diallo</div>
+      <div class="coach-card-spec">Cardio · Running · Nutrition<br><span style="color:#ff9900;font-size:10px">● Dispo ce soir</span></div>
+    </div>
+    <div class="coach-card-price">
+      <div class="price-value">35$</div>
+      <div class="price-unit">/séance</div>
+      <button class="btn-small" style="margin-top:6px;font-size:10px;padding:6px 10px">Réserver</button>
+    </div>
+  </div>
+
+  <div class="coach-card">
+    <div class="coach-card-avatar" style="background:rgba(255,107,53,0.1)">🥊</div>
+    <div class="coach-card-info">
+      <div class="coach-card-name">Léa Martin</div>
+      <div class="coach-card-spec">Boxe · CrossFit · Mobilité<br><span style="color:#00ff88;font-size:10px">● Disponible maintenant</span></div>
+    </div>
+    <div class="coach-card-price">
+      <div class="price-value">50$</div>
+      <div class="price-unit">/séance</div>
+      <button class="btn-small" style="margin-top:6px;font-size:10px;padding:6px 10px">Réserver</button>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- ===== SCREEN: PLAN ===== -->
+
+  <div class="screen" id="screen-plan">
+    <div class="plan-header">
+      <div class="plan-title">Mon Plan 💪</div>
+      <div class="plan-sub">Semaine 6 · Généré par IA</div>
+    </div>
+
+```
+<div class="week-days">
+  <div class="day-chip done"><div class="day-letter">Lun</div><div class="day-number">13</div><div class="day-dot"></div></div>
+  <div class="day-chip done"><div class="day-letter">Mar</div><div class="day-number">14</div><div class="day-dot"></div></div>
+  <div class="day-chip today"><div class="day-letter">Mer</div><div class="day-number">15</div><div class="day-dot"></div></div>
+  <div class="day-chip"><div class="day-letter">Jeu</div><div class="day-number">16</div></div>
+  <div class="day-chip"><div class="day-letter">Ven</div><div class="day-number">17</div></div>
+  <div class="day-chip"><div class="day-letter">Sam</div><div class="day-number">18</div></div>
+  <div class="day-chip"><div class="day-letter">Dim</div><div class="day-number">19</div></div>
+</div>
+
+<div style="padding:0 16px 12px;display:flex;justify-content:space-between;align-items:center">
+  <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700">Upper Body Power</div>
+  <div class="badge-ai">45 min</div>
+</div>
+
+<div class="exercise-list">
+  <div class="exercise-item done-ex">
+    <div class="ex-icon" style="background:rgba(200,241,53,0.1)">🏋️</div>
+    <div class="ex-info">
+      <div class="ex-name">Développé couché</div>
+      <div class="ex-meta">4 séries · 10 reps · 70 kg</div>
+    </div>
+    <div class="ex-check done">✓</div>
+  </div>
+
+  <div class="exercise-item done-ex">
+    <div class="ex-icon" style="background:rgba(200,241,53,0.1)">💪</div>
+    <div class="ex-info">
+      <div class="ex-name">Tractions</div>
+      <div class="ex-meta">3 séries · 8 reps · Poids de corps</div>
+    </div>
+    <div class="ex-check done">✓</div>
+  </div>
+
+  <div class="exercise-item" style="border-color:rgba(200,241,53,0.4)">
+    <div class="ex-icon" style="background:var(--lime)">▶</div>
+    <div class="ex-info">
+      <div class="ex-name">Rowing haltères</div>
+      <div class="ex-meta">4 séries · 12 reps · 22 kg — <span style="color:var(--lime)">En cours</span></div>
+    </div>
+    <div class="ex-check">○</div>
+  </div>
+
+  <div class="exercise-item">
+    <div class="ex-icon" style="background:var(--card2)">🔵</div>
+    <div class="ex-info">
+      <div class="ex-name">Élévations latérales</div>
+      <div class="ex-meta">3 séries · 15 reps · 10 kg</div>
+    </div>
+    <div class="ex-check">○</div>
+  </div>
+
+  <div class="exercise-item">
+    <div class="ex-icon" style="background:var(--card2)">🔵</div>
+    <div class="ex-info">
+      <div class="ex-name">Curl biceps</div>
+      <div class="ex-meta">3 séries · 12 reps · 16 kg</div>
+    </div>
+    <div class="ex-check">○</div>
+  </div>
+
+  <div class="exercise-item">
+    <div class="ex-icon" style="background:var(--card2)">🔵</div>
+    <div class="ex-info">
+      <div class="ex-name">Triceps poulie</div>
+      <div class="ex-meta">3 séries · 15 reps · 25 kg</div>
+    </div>
+    <div class="ex-check">○</div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- BOTTOM NAV -->
+
+  <div class="bottom-nav">
+    <div class="nav-item active" id="nav-home" onclick="showScreen('home');setNav('home')">
+      <div class="icon">🏠</div>
+      <div class="label">Accueil</div>
+    </div>
+    <div class="nav-item" id="nav-fitmap" onclick="showScreen('fitmap');setNav('fitmap')">
+      <div class="icon">📍</div>
+      <div class="label">FitMap</div>
+    </div>
+    <div class="nav-item" id="nav-plan" onclick="showScreen('plan');setNav('plan')">
+      <div class="icon">📋</div>
+      <div class="label">Plan</div>
+    </div>
+    <div class="nav-item" id="nav-coach" onclick="showScreen('coach');setNav('coach')">
+      <div class="icon">🏆</div>
+      <div class="label">Coach</div>
+    </div>
+    <div class="nav-item" id="nav-chat" onclick="showScreen('chat');setNav('chat')">
+      <div class="icon">💬</div>
+      <div class="label">Chat</div>
+    </div>
+  </div>
+
+</div><!-- end phone -->
 
 <script>
-function setLang(lang){
-  document.documentElement.lang = lang;
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+
+  document.querySelectorAll('.nav-tab').forEach((t, i) => {
+    const names = ['onboard','home','fitmap','chat','coach','plan'];
+    t.classList.toggle('active', names[i] === name);
   });
-  // Regular text elements
-  document.querySelectorAll('[data-en]').forEach(el => {
-    const txt = el.getAttribute('data-' + lang);
-    if (txt) el.innerHTML = txt;
-  });
-  // H1/H2 with accent span (uses data-en-h / data-fr-h with pipe separator)
-  document.querySelectorAll('[data-en-h]').forEach(el => {
-    const txt = el.getAttribute('data-' + lang + '-h');
-    if (!txt) return;
-    const parts = txt.split('|');
-    el.innerHTML = parts[0] + '<br><span class="accent">' + parts[1] + '</span>' + (parts[2] ? '<br>' + parts[2] : '');
-  });
-  // Visual desc uses pipe for line breaks
-  document.querySelectorAll('.visual-desc[data-en]').forEach(el => {
-    const txt = el.getAttribute('data-' + lang);
-    if (txt) el.innerHTML = txt.replace(/\|/g, '<br>');
-  });
-  // Popular badge
-  const featured = document.querySelector('.price.featured');
-  if (featured) {
-    featured.setAttribute('data-popular', lang === 'fr' ? 'LE PLUS POPULAIRE' : 'MOST POPULAR');
-  }
-  try { localStorage.setItem('glofit-lang', lang); } catch(e){}
+
+  setNav(name);
 }
 
-// Auto-detect
-(function(){
-  let lang = 'en';
-  try {
-    const saved = localStorage.getItem('glofit-lang');
-    if (saved === 'en' || saved === 'fr') lang = saved;
-    else {
-      const b = (navigator.language || 'en').toLowerCase();
-      if (b.startsWith('fr')) lang = 'fr';
-    }
-  } catch(e){}
-  if (lang === 'fr') setLang('fr');
-})();
+function setNav(name) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const map = { home: 'nav-home', fitmap: 'nav-fitmap', plan: 'nav-plan', coach: 'nav-coach', chat: 'nav-chat' };
+  if (map[name]) document.getElementById(map[name]).classList.add('active');
+}
 </script>
 
 </body>
