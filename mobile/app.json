@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "Glofit",
+    "slug": "glofit",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "glofit",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#0A0A0A",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.glofit.app"
+    },
+    "android": {
+      "package": "com.glofit.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#0A0A0A"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Glofit needs access to your photos to generate your future body projection."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
